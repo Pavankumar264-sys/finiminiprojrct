@@ -1,0 +1,159 @@
+
+{% extends "base.html" %}
+
+{% block title %}Add New IPL Player{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            color: #00008b;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .matches-container {
+            display: flex;
+            flex-direction: column; /* Stack cards vertically */
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            background-color:white;/* Center the cards */
+        }
+
+        .match-box {
+            background: #212529;
+            color: white;
+            border-radius: 15px; /* Rectangular shape with rounded corners */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            width: 25%; /* Set width to half of the screen */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items:right;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            animation: popIn 0.8s ease-out forwards;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .match-box:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .match-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            position: relative;
+            color: #fff;
+        }
+
+        .match-header:hover {
+            animation: swing 1s ease-in-out;
+            color: #ff6f61;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #ff5722;
+        }
+
+        .highlight:hover {
+            text-shadow: 0 0 10px #ffd700, 0 0 20px #ff5722;
+            color: #ffd700;
+            transition: text-shadow 0.3s ease;
+        }
+
+        .match-details {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-top: 10px;
+            color: white; /* This makes the text white */
+        }
+
+        .match-details strong {
+            color: white; /* Make strong text white */
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes swing {
+            0% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(3deg);
+            }
+            50% {
+                transform: rotate(-3deg);
+            }
+            75% {
+                transform: rotate(2deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
+        .match-action {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .match-box {
+                width: 90%; /* Adjust width on smaller screens */
+            }
+        }
+    </style>
+
+    <h1>IPL Matches</h1>
+
+    <div class="matches-container">
+        {% for match in matches %}
+        <div class="match-box" style="animation-delay: {{ loop.index * 0.2 }}s;">
+            <div class="match-header">
+                <span class="highlight">{{ match.team1 }}</span> vs
+                <span class="highlight">{{ match.team2 }}</span>
+            </div>
+            <div class="match-details">
+                <p><strong>Season:</strong> {{ match.season }}</p>
+                <p><strong>City:</strong> {{ match.city }}</p>
+                <p><strong>Date:</strong> {{ match.date }}</p>
+                <p><strong>Venue:</strong> {{ match.venue }}</p>
+                <p><strong>Toss Winner:</strong> {{ match.toss_winner }} ({{ match.toss_decision }})</p>
+                <p><strong>Match Winner:</strong> <span class="highlight">{{ match.match_winner }}</span></p>
+                <p><strong>Win By:</strong> {{ match.win_by_runs }} runs, {{ match.win_by_wickets }} wickets</p>
+                <p><strong>Player of the Match:</strong> <span class="highlight">{{ match.player_of_match }}</span></p>
+                <p><strong>Umpires:</strong> {{ match.umpire1 }}, {{ match.umpire2 }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

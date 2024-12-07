@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}IPL T20{% endblock %}</title>
+    <style>
+        /* Reset Styles */
+        body, ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #242729;
+            line-height: 1.6;
+        }
+
+        /* Navbar Styles */
+        nav {
+            background-color: #12044E; /* IPL blue color */
+            display: flex;
+            justify-content: space-between;
+            font-size:20px;
+
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Logo */
+        nav .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        nav .logo img {
+            height: 50px;
+        }
+
+        nav .logo span {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            margin-left: 10px;
+        }
+
+        /* Menu Styles */
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffd700; /* Gold hover effect */
+        }
+
+        /* Responsive Menu */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        /* Main Content Styles */
+        main {
+            padding: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <nav>
+        <!-- Logo Section -->
+        <div class="logo">
+            <img src="static/img/ipl1 logo.jpeg" alt="IPL Logo">
+            <span>IPL T20</span>
+        </div>
+
+        <!-- Navigation Menu -->
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/matches">Matches</a></li>
+            <li><a href="/teams">Teams</a></li>
+            <li><a href="/players">Players</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

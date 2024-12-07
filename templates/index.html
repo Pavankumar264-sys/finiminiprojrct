@@ -1,0 +1,398 @@
+{% extends "base.html" %}
+
+{% block title %}Add New IPL Player{% endblock %}
+
+{% block content %}
+<style>
+    /* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Header Styles */
+header {
+    background-color:rgb(2, 2, 48);
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ipl-logo {
+    height: 50px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #f1c40f;
+    border-radius: 5px;
+}
+
+/* Hero Section */
+.hero {
+    background-image: url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    height:550px;
+    width:100%;
+    margin-top:0px
+
+    /* Replace with your image URL */
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 0px 0px;
+}
+
+.hero h1 {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 24px;
+}
+.team-container{
+    height: 150px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 25%;
+    margin-left: 75px;
+    margin-right: 25px;
+
+}
+h1{
+    background-color: lightblue;
+    font-size: larger;
+    text-align: center;
+    margin-top: 25px;
+}
+
+button {
+    background-color: #f1c40f;
+    color: #111;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e67e22;
+}
+
+/* Teams Section */
+.teams {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.teams h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+
+
+.team {
+    background-color: #fff;
+    padding: 20px;
+    margin-left: 20px;
+
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    height: 100px;
+    text-align: center;
+}
+
+.team-logo {
+    width: 80px;
+    height: 80px;
+
+}
+
+.view-details {
+    background-color: #f1c40f;
+    margin-top: 15px;
+    color: #111;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+
+}
+
+.view-details:hover {
+    background-color: #e67e22;
+    color: yellow;
+}
+
+/* Matches Section */
+.matches {
+    background-color: #111;
+    color: #fff;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.matches h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+#match-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#match-list li {
+    background-color: #333;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 50%;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.close-btn {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form label {
+    font-size: 18px;
+}
+
+form input,
+form select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    background-color: #f1c40f;
+    color: #111;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #e67e22;
+}
+.copy{
+    align-items: center;
+    font-size: large;
+    text-align: center;
+    margin-top:100px ;
+    color: #111;
+    height: 22px;
+    width: 100%;
+    background-color: gray;
+}
+
+</style>
+<section class="hero">
+        <div class="hero-text">
+
+            <p id="welcomeMessage" style="display: none;">Enjoy the best cricket action from top teams!</p>
+        </div>
+    </section>
+    <section class="text"><div class="head"><h1>TEAMS</h1></div>
+        <div class="team-container">
+            <div class="team" id="MI">
+                <img src="static/img/mi l.png" alt="Team 1 Logo" class="team-logo">
+                <p><a> MI</a></p>
+                <button class="view-details" onclick="viewTeamDetails('MI')">View Details</button>
+            </div>
+            <div class="team" id="CSK">
+                <img src="static/img/csk1.png" alt="Team 2 Logo" class="team-logo">
+                <p>CSK</p>
+                <button class="view-details" onclick="viewTeamDetails('CSK')">View Details</button>
+            </div>
+            <!-- Add more teams as needed -->
+            <div class="team" id="RCB">
+                <img src="static/img/rcb-logo-new.png" alt="Team 3 Logo" class="team-logo">
+                <p>RCB</p>
+                <button class="view-details" onclick="viewTeamDetails('RCB')">View Details</button>
+            </div>
+            <div class="team" id="KKR">
+                <img src="static/img/kkr.png" alt="Team 2 Logo" class="team-logo">
+                <p>KKR</p>
+                <button class="view-details" onclick="viewTeamDetails('KKR')">View Details</button>
+            </div>
+            <div class="team" id="RR">
+                <img src="static/img/rrr.png" alt="Team 2 Logo" class="team-logo">
+                <p>RR</p>
+                <button class="view-details" onclick="viewTeamDetails('RR')">View Details</button>
+            </div>
+            <div class="team" id="SRH">
+                <img src="static/img/srh2.png" alt="Team 2 Logo" class="team-logo">
+                <p>SRH</p>
+                <button class="view-details" onclick="viewTeamDetails('SRH')">View Details</button>
+            </div>
+            <div class="team" id="DC">
+                <img src="static/img/dc log.jpeg" alt="Team 2 Logo" class="team-logo">
+                <p>DC</p>
+                <button class="view-details" onclick="viewTeamDetails('DC')">View Details</button>
+            </div>
+            <div class="team" id="PBKS">
+                <img src="static/img/pbks1.png" alt="Team 2 Logo" class="team-logo">
+                <p>PBKS</p>
+                <button class="view-details" onclick="viewTeamDetails('PBKS')">View Details</button>
+            </div>
+            <div class="team" id="GT">
+                <img src="static/img/gt.png" alt="Team 2 Logo" class="team-logo">
+                <p>GT</p>
+                <button class="view-details" onclick="viewTeamDetails('GT')">View Details</button>
+            </div>
+            <div class="team" id="LSG">
+                <img src="static/img/lucknow.png" alt="Team 2 Logo" class="team-logo">
+                <p>LSG</p>
+                <button class="view-details" onclick="viewTeamDetails('LSG')">View Details</button>
+            </div>
+
+
+
+        </div>
+        </section>
+    <!-- Matches Section -->
+
+
+    <!-- Footer Section -->
+    <footer>
+        <p class="copy">&copy; 2024 IPL. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Ticket Booking Popup -->
+    <div id="ticketModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Book IPL Tickets</h2>
+            <form id="ticket-form">
+                <label for="team">Select Team:</label>
+                <select id="team" required>
+                    <option value="team1">Team 1</option>
+                    <option value="team2">Team 2</option>
+                    <!-- Add other teams here -->
+                </select>
+                <label for="quantity">Ticket Quantity:</label>
+                <input type="number" id="quantity" required min="1" max="10">
+                <button type="submit">Book Tickets</button>
+            </form>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    // Show welcome message on button click
+document.getElementById('welcomeButton').addEventListener('click', function() {
+    var message = document.getElementById('welcomeMessage');
+    message.style.display = 'block';  // Show the welcome message
+});
+
+// Display team details dynamically
+function viewTeamDetails(teamId) {
+    alert("Details of " + teamId + " will be available soon!");
+}
+
+// Dynamic Match List
+const matches = [
+    { match: "Team 1 vs Team 2", date: "2024-04-01", time: "7:30 PM" },
+    { match: "Team 3 vs Team 4", date: "2024-04-02", time: "7:30 PM" },
+    // Add more matches as needed
+];
+
+const matchList = document.getElementById("match-list");
+
+matches.forEach(match => {
+    const li = document.createElement("li");
+    li.textContent = `${match.match} - ${match.date} at ${match.time}`;
+    matchList.appendChild(li);
+});
+
+// Ticket Booking Modal
+function openModal() {
+    document.getElementById('ticketModal').style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('ticketModal').style.display = 'none';
+}
+
+// Booking Tickets (for demo purpose)
+document.getElementById('ticket-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const team = document.getElementById('team').value;
+    const quantity = document.getElementById('quantity').value;
+    alert(`Tickets for ${team} have been booked! Quantity: ${quantity}`);
+    closeModal();  // Close modal after booking
+});
+
+</script>
+
+{% endblock %}
